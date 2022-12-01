@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    command: mongod --quiet --logpath /dev/null
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - data:/data/db
+      # TODO: add it but not needed rn
+      # - ./mongo_initial:/docker-entrypoint-initdb.d/
+volumes:
+  data:
+    driver: local
