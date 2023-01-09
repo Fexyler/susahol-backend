@@ -10,11 +10,7 @@ const userSchema = new Schema<IUser>({
     unique: true,
     required: true,
   },
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
+  fullName: {
     type: String,
     required: true,
   },
@@ -24,7 +20,6 @@ const userSchema = new Schema<IUser>({
   },
   role: {
     type: String,
-    enum: ['user', 'manager'],
     default: 'user',
   },
   jobDetails: {

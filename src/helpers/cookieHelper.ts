@@ -1,6 +1,6 @@
 import { FastifyReply } from 'fastify';
 import ms from 'ms';
-import config from 'config';
+import config from '../config';
 
 export const setCookie = (res: FastifyReply, key: string, value: string, maxAge: number) => {
   res.cookie(key, value, {
@@ -12,8 +12,8 @@ export const setCookie = (res: FastifyReply, key: string, value: string, maxAge:
 };
 
 const setResponseCookie = (res: FastifyReply, accessToken: string, refreshToken: string) => {
-  setCookie(res, 'access-token', accessToken, ms(config.accessTokenExpire));
-  setCookie(res, 'refresh-token', refreshToken, ms(config.refreshTokenExpire));
+  setCookie(res, 'access_token', accessToken, ms(config.accessTokenExpire));
+  setCookie(res, 'refresh_token', refreshToken, ms(config.refreshTokenExpire));
 };
 
 export default setResponseCookie;

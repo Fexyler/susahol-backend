@@ -3,7 +3,7 @@ import ms from 'ms';
 import jwt from 'jsonwebtoken';
 import { IJwtOptions, ITokenPayload } from '../types';
 import { client } from '../database/redisConnection';
-import config from 'config';
+import config from '../config';
 
 dotenv.config({ path: `./.env/.${process.env.NODE_ENV}` });
 

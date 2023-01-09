@@ -17,16 +17,9 @@ export interface SocialAccounts {
 
 export interface IUserData {
   email: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   password: string; //NOTE: Hashed password
-  role: 'user' | 'manager';
-  jobDetails: {
-    // NOTE: Company info is nullable, when it is a student etc.
-    jobName: 'student' | 'academician' | 'employee';
-    companyInfo?: CompanyInfo;
-  }
-  socialAccounts: SocialAccounts;
+  role: string;
 }
 
 export const CheckIfUserExistsInDatabase = async (email: string): Promise<boolean> => {
@@ -43,15 +36,41 @@ export const CreateUser = async (userData: IUserData): Promise<string> => {
   try {
     const user = new User({
       email: userData.email,
-      firstName: userData.firstName,
-      lastName: userData.lastName,
+      fullName: userData.fullName,
       password: userData.password,
       role: userData.role,
-      jobDetails: userData.jobDetails,
-      socialAccounts: userData.socialAccounts,
     });
     await user.save();
     return user.id;
+  }
+  catch (err) {
+    throw err;
+  }
+}
+
+export const GetUser = async (userId: string | null) => {
+  try {
+    if (!userId) {
+      return null;
+    }
+    const user = await User.findById(userId).lean();
+    if (!user) {
+      return null;
+    }
+    return user;
+  }
+  catch (err) {
+    throw err;
+  }
+}
+
+export const GetUserByEmail = async (email: string | null) => {
+  try {
+    const user = await User.findOne({email}).lean();
+    if (!user) {
+      return null;
+    }
+    return user;
   }
   catch (err) {
     throw err;

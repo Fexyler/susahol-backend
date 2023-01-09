@@ -2,16 +2,13 @@ import mongoose, { ConnectOptions } from "mongoose";
 import config from '../config'
 import User from './models/User';
 
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+const options: ConnectOptions = {
+  dbName: 'su-sahol',
 };
 
 type MongooseError = {
   message: string;
 };
-
-console.log(config)
 
 const initialDbUrl: string = config.mongoDbConnectionUri as string;
 

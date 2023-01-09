@@ -19,12 +19,10 @@ export interface IUser {
   save(): IUser | PromiseLike<IUser>;
   _id: Types.ObjectId;
   email: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   password: string;
-  role: 'user' | 'manager';
+  role: string;
   jobDetails: {
-    // NOTE: Company info is nullable, when it is a student etc.
     jobName: 'student' | 'academician' | 'employee';
     companyInfo?: CompanyInfo;
   }

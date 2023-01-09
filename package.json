@@ -4,8 +4,9 @@
   "description": "SU-SAHOL Project Backend",
   "main": "index.js",
   "scripts": {
-    "dev": "docker compose -f docker-compose.dev.yml up",
-    "dev:build": "docker compose -f docker-compose.dev.yml up --build",
+    "dev:watch": "cross-env NODE_ENV=development ts-node-dev --transpile-only src/index.ts",
+    "docker": "docker compose -f docker-compose.dev.yml up",
+    "docker:build": "docker compose -f docker-compose.dev.yml up --build",
     "build": "tsc --build && tscpaths -p tsconfig.json -s ./src -o ./dist"
   },
   "repository": {
