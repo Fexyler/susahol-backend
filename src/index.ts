@@ -10,7 +10,7 @@ import { redisConnection } from './database/redisConnection';
 import app from './router';
 import { ITokenPayload } from 'types';
 
-dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
+dotenv.config({ path: `./.env` });
 
 app.get('/healthcheck', async (req, res) => {
   return { status: true }
@@ -115,6 +115,8 @@ app.register(
     prefix: '/auth'
   }
 )
+
+
 
 const start = async () => {
   try {

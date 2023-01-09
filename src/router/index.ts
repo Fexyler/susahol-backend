@@ -2,7 +2,7 @@ import Fastify from 'fastify'
 import cookie from '@fastify/cookie'
 import dotenv from 'dotenv';
 
-dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
+dotenv.config({ path: `./.env` });
 
 const app = Fastify({
   logger: {

@@ -5,7 +5,7 @@ import { IJwtOptions, ITokenPayload } from '../types';
 import { client } from '../database/redisConnection';
 import config from '../config';
 
-dotenv.config({ path: `./.env/.${process.env.NODE_ENV}` });
+dotenv.config({ path: `./.env` });
 
 export const getAccessToken = async (userId: string, email: string) => {
   const payload: ITokenPayload = {

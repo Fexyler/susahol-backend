@@ -1,7 +1,7 @@
 import { createClient } from 'redis';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
+dotenv.config({ path: `./.env` });
 
 export const client = createClient({
   url: process.env.REDIS_URI,

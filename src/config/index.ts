@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-dotenv.config({ path: `./.env.${process.env.NODE_ENV || 'development'}` });
+dotenv.config({ path: `./.env` });
 
 export default {
   accessTokenExpire: '30m',
