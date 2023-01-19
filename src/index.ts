@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
-import { CheckIfUserExistsInDatabase, CreateUser, GetUser, GetUserByEmail } from './database/user.functions';
+import { Types } from 'mongoose';
+import { CheckIfUserExistsInDatabase, CreateUser, GetUser, GetUserByEmail, GetUserByUsername } from './database/user.functions';
 import { BadRequestError, InternalServerError } from './helpers/responseHandler';
 import { CreateUserInput, CreateUserSchema, LoginUserInput, LoginUserSchema } from './schemas/userSchema';
 import { getAccessToken, getRefreshToken, verifyAccessToken, verifyRefreshToken } from './helpers/jwtHelper';
@@ -8,7 +9,8 @@ import setResponseCookie from './helpers/cookieHelper';
 import { dbConnection } from './database';
 import { redisConnection } from './database/redisConnection';
 import app from './router';
-import { ITokenPayload } from 'types';
+import { ITokenPayload } from './types';
+import { CreateProject, EditProject, GetProjectDetails, GetProjectDetailsOfUser, GetProjects } from './database/project.functions';
 
 dotenv.config({ path: `./.env` });
 
@@ -18,7 +20,6 @@ app.get('/healthcheck', async (req, res) => {
 
 app.register(
   function(api, opts, done) {
-
     api.get('/me', async (req, reply) => {
       let payload: ITokenPayload | null;
       const accessToken = verifyAccessToken(req.cookies.access_token as string);
@@ -46,7 +47,7 @@ app.register(
       }
       return {
         email: user.email,
-        fullName: user.fullName,
+        fullName: user.firstName + " " + user.lastName,
         role: user.role
       }
     })
@@ -108,17 +109,172 @@ app.register(
         return InternalServerError(reply);
       }
     })
+    api.post('/addProject', async(req, reply) => {
+      let payload: ITokenPayload | null;
+      console.log(req.cookies);
+      const accessToken = verifyAccessToken(req.cookies.access_token as string);
+      payload = accessToken;
+      if (!accessToken) {
+        const refreshToken = await verifyRefreshToken(req.cookies.refresh_token as string);
+        if (!refreshToken) {
+          return {
+            status: false,
+            message: "User is not authenticated."
+          }
+        }
+        payload = {
+          userId: refreshToken.userId,
+          email: refreshToken.email
+        }
+      }
+      const userId = payload?.userId;
+      const {
+        title,
+        description,
+        tags,
+        members,
+      } = req.body as {
+        title: string,
+        description: string,
+        tags: string[]
+        members: string[],
+      };
+      const projectData = {
+        title,
+        description,
+        tags,
+        members,
+        owner: new Types.ObjectId(userId as string),
+      }
+      const id = await CreateProject(projectData);
+      return {
+        statusCode: 200,
+        projectId: id,
+      }
+    })
+    api.get('/getProfile', async(req, reply) => {
+      let payload: ITokenPayload | null;
+      const accessToken = verifyAccessToken(req.cookies.access_token as string);
+      payload = accessToken;
+      if (!accessToken) {
+        const refreshToken = await verifyRefreshToken(req.cookies.refresh_token as string);
+        if (!refreshToken) {
+          return {
+            status: false,
+            message: "User is not authenticated."
+          }
+        }
+        payload = {
+          userId: refreshToken.userId,
+          email: refreshToken.email
+        }
+      }
+      const userId = payload?.userId;
+      let user;
+      if (!(req.query as any).username) {
+        user = await GetUser(userId as string);
+      }
+      else {
+        user = await GetUserByUsername((req.query as any).username)
+      }
+      if (!user) {
+        return {
+          status: false,
+          message: "There is no user."
+        }
+      }
+      const projects = await GetProjectDetailsOfUser(user._id.toString());
+      return {
+        owner: {
+          username: user.username,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          company: user.company,
+          department: user.department,
+          about: user.about,
+          image: user.image
+        },
+        projects,
+      }
+    })
+    api.get('/getProjects', async(req, reply) => {
+      const searchValue = (req.query as any).searchInput;
+      const projects = await GetProjects(searchValue || null);
+      if (!projects || projects.length === 0) {
+        return {
+          statusCode: 200,
+          projects: []
+        }
+      }
+      return projects;
+    })
+    api.post('/editProject', async(req, reply) => {
+      let payload: ITokenPayload | null;
+      const accessToken = verifyAccessToken(req.cookies.access_token as string);
+      payload = accessToken;
+      if (!accessToken) {
+        const refreshToken = await verifyRefreshToken(req.cookies.refresh_token as string);
+        if (!refreshToken) {
+          return {
+            status: false,
+            message: "User is not authenticated."
+          }
+        }
+        payload = {
+          userId: refreshToken.userId,
+          email: refreshToken.email
+        }
+      }
+      const userId = payload?.userId;
+      const projectId = (req.query as any).projectId;
+      const {
+        title,
+        description,
+        tags,
+        members,
+      } = req.body as {
+        title: string,
+        description: string,
+        tags: string[]
+        members: string[],
+      };
+      const projectData = {
+        title,
+        description,
+        tags,
+        members,
+        owner: new Types.ObjectId(userId as string),
+      }
+      await EditProject(projectId, projectData);
+      return {
+        statusCode: 200,
+        projectId,
+      }
+    })
+    api.get('/getProjectDetails', async(req, reply) => {
+      const projectDetails = await GetProjectDetails((req.query as any).projectId);
+      if (!projectDetails) {
+        return {
+          statusCode: 400
+        };
+      }
+      return {
+        statusCode: 200,
+        project: projectDetails,
+      }
+    })
 
     done()
   },
   {
-    prefix: '/auth'
+    prefix: '/'
   }
 )
 
 
 
 const start = async () => {
+  console.clear();
   try {
     redisConnection();
     dbConnection();

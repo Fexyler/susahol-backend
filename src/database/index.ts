@@ -1,6 +1,7 @@
 import mongoose, { ConnectOptions } from "mongoose";
 import config from '../config'
 import User from './models/User';
+import Project from "./models/Project";
 
 const options: ConnectOptions = {
   dbName: 'su-sahol',
@@ -36,5 +37,6 @@ const dbConnection = () => {
 
 export {
   User,
+  Project,
   dbConnection,
 };

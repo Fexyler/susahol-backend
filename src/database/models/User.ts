@@ -10,7 +10,15 @@ const userSchema = new Schema<IUser>({
     unique: true,
     required: true,
   },
-  fullName: {
+  username: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
     type: String,
     required: true,
   },
@@ -22,20 +30,21 @@ const userSchema = new Schema<IUser>({
     type: String,
     default: 'user',
   },
-  jobDetails: {
-    type: {
-      jobName: {
-        type: String,
-        enum: ['student', 'academician', 'employee'],
-        default: 'student',
-      },
-      companyInfo: {
-        companyName: String,
-        department: String,
-        title: String,
-        expertise: String
-      }
-    }
+  company: {
+    type: String,
+    default: 'Sabanci University'
+  },
+  department: {
+    type: String,
+    default: "Faculty of Engineering and Science"
+  },
+  about: {
+    type: String,
+    default: "Researcher"
+  },
+  image: {
+    type: String,
+    default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
   },
   socialAccounts: {
     type: {

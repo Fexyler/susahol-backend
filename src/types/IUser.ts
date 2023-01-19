@@ -19,12 +19,14 @@ export interface IUser {
   save(): IUser | PromiseLike<IUser>;
   _id: Types.ObjectId;
   email: string;
-  fullName: string;
+  username: string;
+  firstName: string;
+  lastName: string;
   password: string;
   role: string;
-  jobDetails: {
-    jobName: 'student' | 'academician' | 'employee';
-    companyInfo?: CompanyInfo;
-  }
+  company: string;
+  department: string;
+  about: string;
+  image: string;
   socialAccounts: SocialAccounts;
 }

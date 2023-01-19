@@ -35,10 +35,16 @@ export const CheckIfUserExistsInDatabase = async (email: string): Promise<boolea
 export const CreateUser = async (userData: IUserData): Promise<string> => {
   try {
     const user = new User({
+      username: userData.email.split('@')[0],
       email: userData.email,
-      fullName: userData.fullName,
+      firstName: userData.fullName.split(' ')[0],
+      lastName: userData.fullName.split(' ')[1],
       password: userData.password,
       role: userData.role,
+      company: "Sabanci University",
+      department: "Faculty of Engineering and Science",
+      about: "Researcher",
+      image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
     });
     await user.save();
     return user.id;
@@ -54,6 +60,22 @@ export const GetUser = async (userId: string | null) => {
       return null;
     }
     const user = await User.findById(userId).lean();
+    if (!user) {
+      return null;
+    }
+    return user;
+  }
+  catch (err) {
+    throw err;
+  }
+}
+
+export const GetUserByUsername = async (username: string) => {
+  try {
+    if (!username) {
+      return null;
+    }
+    const user = await User.findOne({username}).lean();
     if (!user) {
       return null;
     }
