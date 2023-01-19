@@ -3,7 +3,8 @@ SU-SAHOL Project Backend
 
 ## How to run?
 
+```bash
 docker compose -f docker-compose.dev.yml up --build
-
-
-## Find the easter egg xd
+npm install
+npm run dev:watch
+```

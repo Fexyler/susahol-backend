@@ -1,20 +1,20 @@
 version: '3.8'
 services:
-  susahol-backend:
-    build:
-      context: ./
-      dockerfile: Dockerfile.dev
-    restart: unless-stopped
-    ports:
-      - 4000:4000
-    networks:
-      - app-network
-    volumes:
-      - ./:/susahol-backend
-      - ignore:/susahol-backend/node_modules
+  # susahol-backend:
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile.dev
+  #   restart: unless-stopped
+  #   ports:
+  #     - 4000:4000
+  #   networks:
+  #     - app-network
+  #   volumes:
+  #     - ./:/susahol-backend
+  #     - ignore:/susahol-backend/node_modules
 
-    depends_on:
-      - redis
+  #   depends_on:
+  #     - redis
 
   redis:
     extends:
