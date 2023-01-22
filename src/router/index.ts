@@ -1,4 +1,5 @@
 import Fastify from 'fastify'
+import cors from '@fastify/cors'
 import cookie from '@fastify/cookie'
 import dotenv from 'dotenv';
 
@@ -15,6 +16,11 @@ const app = Fastify({
     }
   }
 })
+
+app.register(cors, { 
+  origin: false,
+})
+
 
 app.register(cookie, {
   parseOptions: {}

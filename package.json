@@ -22,6 +22,7 @@
   "homepage": "https://github.com/Fexyler/susahol-backend#readme",
   "dependencies": {
     "@fastify/cookie": "^8.3.0",
+    "@fastify/cors": "^8.2.0",
     "@typegoose/typegoose": "^9.13.1",
     "axios": "^1.2.0",
     "bcryptjs": "^2.4.3",

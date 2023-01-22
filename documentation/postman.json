@@ -1,0 +1,354 @@
+{
+  "info": {
+    "name": "SU-SAHOL",
+    "_postman_id": "c3fc165b-fa6f-42ad-9e8c-8113702dbba2",
+    "description": "",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "description": "",
+      "item": [
+        {
+          "id": "9003aaeb-b53c-47a7-8736-c77bd47801de",
+          "name": "/login",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "login"
+              ],
+              "port": "4000"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "",
+                "disabled": false
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\": \"batuhan.isildak@sabanciuniv.edu\",\n\t\"password\": \"Batuhan25-\"\n}",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                
+              ],
+              "body": "any",
+              "code": 200,
+              "name": "Response_200",
+              "id": "a1dab8fa-b383-4fe5-9c59-f930f307cb6c"
+            }
+          ]
+        },
+        {
+          "id": "77f9ba37-7e95-44f1-b964-66d36069b8f0",
+          "name": "/me",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "me"
+              ],
+              "port": "4000"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                
+              ],
+              "body": "any",
+              "code": 200,
+              "name": "Response_200",
+              "id": "776f2356-370a-4c2b-850f-041036879c24"
+            }
+          ]
+        },
+        {
+          "id": "64c4c854-d60b-4343-a34b-306f3bc763ea",
+          "name": "/register",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "register"
+              ],
+              "port": "4000"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "",
+                "disabled": false
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\": \"batuhan.isildak@sabanciuniv.edu\",\n\t\"fullName\": \"Batuhan Isildak\",\n\t\"password\": \"Batuhan25-\",\n\t\"re_password\": \"Batuhan25-\",\n\t\"role\": \"Student\"\n}",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                
+              ],
+              "body": "any",
+              "code": 200,
+              "name": "Response_200",
+              "id": "9044fa0f-55ca-4cc8-af60-c3e926d2d7e8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b85b4c45-a43d-4d28-a2dd-38c509ca1dcd",
+      "name": "Get Projects",
+      "request": {
+        "url": {
+          "protocol": "http",
+          "host": "localhost",
+          "path": [
+            "getProjects?searchInput=tag1"
+          ],
+          "port": "4000"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "*/*",
+            "disabled": false
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "disabled": false
+        },
+        "description": ""
+      },
+      "response": [
+        {
+          "header": [
+            
+          ],
+          "body": "any",
+          "code": 200,
+          "name": "Response_200",
+          "id": "4e35c524-0884-40b2-af95-48a9d104ea13"
+        }
+      ]
+    },
+    {
+      "id": "5c0e8b7e-390d-4427-a112-b9a5a01f15ca",
+      "name": "Get Project Details",
+      "request": {
+        "url": {
+          "protocol": "http",
+          "host": "localhost",
+          "path": [
+            "getProjectDetails?projectId=63c97f89fcb4cb971eb49333"
+          ],
+          "port": "4000"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "*/*",
+            "disabled": false
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "disabled": false
+        },
+        "description": ""
+      },
+      "response": [
+        {
+          "header": [
+            
+          ],
+          "body": "any",
+          "code": 200,
+          "name": "Response_200",
+          "id": "939826cf-ed3c-4f2b-83d9-2ecb062f518b"
+        }
+      ]
+    },
+    {
+      "id": "a7dca295-5b57-4886-9c98-469e178c01f4",
+      "name": "Edit Project",
+      "request": {
+        "url": {
+          "protocol": "http",
+          "host": "localhost",
+          "path": [
+            "editProject?projectId=63c97f89fcb4cb971eb49333"
+          ],
+          "port": "4000"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": "",
+            "disabled": false
+          },
+          {
+            "key": "Accept",
+            "value": "*/*",
+            "disabled": false
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"title\": \"qweqweqwe\",\n\t\"description\": \"Batu desc\",\n\t\"tags\": [\"tag1\", \"tag2\"],\n\t\"members\": [\"batu@x.com\", \"batu@y.com\"]\n}",
+          "disabled": false
+        },
+        "description": ""
+      },
+      "response": [
+        {
+          "header": [
+            
+          ],
+          "body": "any",
+          "code": 200,
+          "name": "Response_200",
+          "id": "32a4c8b2-0ee0-45b2-bdac-f48398c7d6c0"
+        }
+      ]
+    },
+    {
+      "id": "cfc1be06-d6e9-4ec4-93b2-9cd2f7b08273",
+      "name": "Get Profile",
+      "request": {
+        "url": {
+          "protocol": "http",
+          "host": "localhost",
+          "path": [
+            "getProfile?username=batuhan.isildak"
+          ],
+          "port": "4000"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "*/*",
+            "disabled": false
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "disabled": false
+        },
+        "description": ""
+      },
+      "response": [
+        {
+          "header": [
+            
+          ],
+          "body": "any",
+          "code": 200,
+          "name": "Response_200",
+          "id": "9fd8be26-3f2a-4312-a072-b4b526da9b70"
+        }
+      ]
+    },
+    {
+      "id": "1ac5ff69-8892-4441-a469-c4d8a006d9af",
+      "name": "Create Project",
+      "request": {
+        "url": {
+          "protocol": "http",
+          "host": "localhost",
+          "path": [
+            "addProject"
+          ],
+          "port": "4000"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": "",
+            "disabled": false
+          },
+          {
+            "key": "Accept",
+            "value": "*/*",
+            "disabled": false
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"title\": \"Test-Batu\",\n\t\"description\": \"Batu desc\",\n\t\"tags\": [\"tag1\", \"tag2\"],\n\t\"members\": [\"batu@x.com\", \"batu@y.com\"]\n}",
+          "disabled": false
+        },
+        "description": ""
+      },
+      "response": [
+        {
+          "header": [
+            
+          ],
+          "body": "any",
+          "code": 200,
+          "name": "Response_200",
+          "id": "b42eb7fc-8a38-453f-aa48-09f750e89093"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    
+  ],
+  "auth": {
+    "type": "noauth"
+  }
+}
